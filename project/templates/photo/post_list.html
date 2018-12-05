@@ -1,0 +1,12 @@
+{% extends 'photo/base.html' %}
+
+{% block title %}Post List{% endblock %}
+{% block content %}
+<div class="row">
+	{% for post in posts %}
+		<div id="post-{{ post.pk }}">
+			{% include 'include/post.html' with post_type='list' %}
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'photo/base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="login">
+	{% include 'include/form.html' with form=login_form submit_title='로그인' %}
+</div>
+{% endblock %}

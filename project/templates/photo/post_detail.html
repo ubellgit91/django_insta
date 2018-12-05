@@ -1,0 +1,8 @@
+{% extends 'photo/base.html' %}
+
+{% block title %}Post Detail{% endblock %}
+{% block content %}
+<div>
+	{% include 'include/post.html' with post_type='detail' %}
+</div>
+{% endblock %}

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'photo',
+    'member',
 
 ]
 
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,6 +83,8 @@ DATABASES = {
     }
 }
 
+# custom UserModel을 쓰려면 셋팅 해줘야함. 어떤 UserModel을 쓸건지.
+AUTH_USER_MODEL = "member.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -119,13 +122,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 # STATICFILES_DIRS은 개발 단계에서 사용하는 정적 파일이 위치한 경로들을 지정하는 설정 항목
-STATICFILES_DIR = [ #  Python의 list나 tuple로 담으면 됩니다.
+STATICFILES_DIRS = [ #  Python의 list나 tuple로 담으면 됩니다.
     os.path.join(BASE_DIR, 'static'),
 ]
 
 
 # 이용자가 업로디한 media파일이 저장될 경로를 지정함.
 MEDIA_URL = '/upload_files/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads') # 업로드가 끝난 파일을 배치할 최상위 경로 지정

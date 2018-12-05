@@ -1,0 +1,8 @@
+{% extends 'photo/base.html' %}
+
+{% block title %}Post create{% endblock %}
+{% block content %}
+<div class="post-create">
+	{% include 'include/form.html' with form=post_form submit_title='등록' enctype='file' %}
+</div>
+{% endblock %}

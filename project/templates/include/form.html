@@ -1,0 +1,21 @@
+<form action="" method="post"{% if enctype == 'file' %} enctype="multipart/form-data"{% endif %}>
+{% csrf_token %}
+{% for field in form %}
+<div class="form-group{% if field.errors %} has-error{% endif %}">
+    {{ field.label_tag }}
+    {{ field }}
+    {% if field.errors %}
+    {% for error in field.errors %}
+    <span class="help-block">{{ error }}</span>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endfor %}
+
+{% if form.non_field_errors %}
+{% for error in login_form.non_field_errors %}
+<p class="text-danger"><b>{{ error }}</b></p>
+{% endfor %}
+{% endif %}
+<button class="btn btn-primary btn-block">{{ submit_title }}</button>
+</form>
