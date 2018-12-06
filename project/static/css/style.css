@@ -1,0 +1,33 @@
+/* Default */
+ul, ol {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+/* Post */
+.post-item .post-image {
+    width: 100%;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.post-item hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.post-item .comment-form input.content {
+    border: 0;
+    width: 100%;
+    outline: none;
+}
+
+.post-item .comment-list {
+    vertical-align: middle;
+}
+
+.post-item .comment-list .comment .comment-author {
+    font-weight: bold;
+    margin-right: 3px;
+}

@@ -1,7 +1,7 @@
 <div class="panel panel-default post-item">
     {% if post_type == 'list' %}
     <a href="{% url 'photo:detail' pk=post.pk %}">
-        <img src="{{ post.image.url }}" alt="" class="post-image">
+        <img src="{{ post.image.url }}" alt="" class="post-image img-thumbnail">
     </a>
     {% else %}
     <img src="{{ post.image.url }}" alt="" class="post-image">
@@ -18,17 +18,72 @@
         </ul>
         <hr>
         {% endif %}
-        <form
-                action="{% url 'photo:comment_create' pk=post.pk %}?next=
+
+        <div class="panel-body">
+            <div class="btn-container">
+                <form
+                        action="{% url 'photo:post_like_toggle' pk=post.pk %}?next=
+				{% if post_type == 'list' %}
+					{% url 'photo:list' %}#post-{{ post.pk }}
+				{% elif post_type == 'detail' %}
+					{% url 'photo:detail' pk=post.pk %}
+				{% endif %}"
+                        method="POST"
+                        class="form-inline">
+                    {% csrf_token %}
+                    <button class="btn btn-default btn-post-toggle" aria-label="Like button">
+			  <span class="glyphicon {% if post in user.like_posts.all %}
+				      glyphicon-heart
+						{% else %}
+							glyphicon-heart-empty
+						{% endif %}"
+                      aria-hidden="true"></span>
+                    </button>
+                </form>
+                <a class="btn btn-default btn-post-toggle"
+                   onclick="document.getElementById('{{ comment_form.content.id_for_label }}').focus()">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+            </div>
+            {% with like_count=post.like_users.count %}
+            {% if like_count %}
+            <p class="like-count">
+                {% if like_count < 10 %}
+                <b>
+                    {% for user in post.like_users.all %}
+                    {{ user.username }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </b>
+                님이 좋아합니다
+                {% else %}
+                <b>좋아요 {{ user.like_posts.count }}개</b>
+                {% endif %}
+            </p>
+            {% endif %}
+            {% endwith %}
+
+            {% if post.comment_set.exists %}
+            <ul class="comment-list">
+                {% for comment in post.comment_set.all %}
+                <li class="comment">
+                    <span class="comment-author">{{ comment.author }}</span>
+                    <span class="comment-content">{{ comment.content }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <form
+                    action="{% url 'photo:comment_create' pk=post.pk %}?next=
 	{% if post_type == 'list' %}
 		{% url 'photo:list' %}#post-{{ post.pk }}
 	{% elif post_type == 'detail' %}
 		{% url 'photo:detail' pk=post.pk %}
 	{% endif %}"
-                method="POST"
-                class="comment-form">
-            {% csrf_token %}
-            {{ comment_form.content }}
-        </form>
+                    method="POST"
+                    class="comment-form">
+                {% csrf_token %}
+                {{ comment_form.content }}
+            </form>
+        </div>
     </div>
-</div>

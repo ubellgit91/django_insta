@@ -85,7 +85,10 @@ DATABASES = {
 
 # custom UserModel을 쓰려면 셋팅 해줘야함. 어떤 UserModel을 쓸건지.
 AUTH_USER_MODEL = "member.User"
-
+# 로그인이 완료되면 이동할 URL
+LOGIN_REDIRECT_URL = 'photo:list'
+# 로그인이 필요할 경우 이동할 URL
+LOGIN_URL = 'member:login'
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
