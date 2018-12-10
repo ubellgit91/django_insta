@@ -25,7 +25,7 @@ class CommentForm(forms.ModelForm):
                 }
             )
         }
-    # content항목의 값을 검사하는 메소드.
+    # content항목의 값을 검사하는 메소드. # cleaned_data 즉, 유효성 검사를 받고 나온 값이 없다면, 에러.
     def clean_content(self):
         data = self.cleaned_data['content']
         errors =[]

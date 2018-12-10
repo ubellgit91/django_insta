@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('photo/', include('photo.urls', namespace='photo')),
-    path('member/', include('member.urls', namespace='member'))
+    path('member/', include('member.urls', namespace='member')),
+    path('blog/', include('blog.urls', namespace='blog')),
     # namespace에 이름을 붙이면, 각각의 urls모듈을 템플릿이나 뷰에서 사용할 때 같은 URL이름도 모듈별로 분리된 이름을 가질 수 있도록 해준다.
 
 ]
