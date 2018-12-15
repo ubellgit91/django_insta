@@ -7,17 +7,6 @@
     <img src="{{ post.image.url }}" alt="" class="post-image">
     {% endif %}
     <div class="panel-body">
-        {% if post.comments.exists %}
-        <ul class="comment-list">
-            {% for comment in post.comments.all %}
-            <li class="comment">
-                <span class="comment-author">{{ comment.author }}</span>
-                <span class="comment-content">{{ comment.content }}</span>
-            </li>
-            {% endfor %}
-        </ul>
-        <hr>
-        {% endif %}
 
         <div class="panel-body">
             <div class="btn-container">
@@ -31,13 +20,12 @@
                         method="POST"
                         class="form-inline">
                     {% csrf_token %}
-                    <button class="btn btn-default btn-post-toggle" aria-label="Like button">
-			  <span class="glyphicon {% if post in user.like_posts.all %}
-				      glyphicon-heart
+                    <button class="btn btn-default" aria-label="Left Align">
+			             {% if post in user.like_posts.all %}
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 						{% else %}
-							glyphicon-heart-empty
-						{% endif %}"
-                      aria-hidden="true"></span>
+						<span class="glyphicon glyphicon-star-empty"></span>
+						{% endif %}
                     </button>
                 </form>
                 <a class="btn btn-default btn-post-toggle"

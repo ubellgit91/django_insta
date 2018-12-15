@@ -1,7 +1,12 @@
-{% extends 'photo/base.html' %}
+{% extends 'base/base.html' %}
 
 {% block title %}Photo Post List{% endblock %}
 {% block content %}
+{% if user.is_authenticated %}
+<div>
+	<a href="{% url 'photo:post' %}">add Post</a>
+</div>
+{% endif %}
 <div class="row">
 	{% for post in posts %}
 		<div id="post-{{ post.pk }}">

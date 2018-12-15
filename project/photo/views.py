@@ -1,5 +1,6 @@
 from django.contrib import messages
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import View
 #
 from .models import Post
@@ -48,14 +49,21 @@ def post_create(request):
 
             # 성공 알림을 messages에 추가 후 post_list뷰로 이동
             messages.success(request, '사진이 등록되었습니다')
-            return redirect('post:post_list')
+            return redirect('photo:list')
     else:
         post_form = PostForm()
 
     context = {
         'post_form': post_form,
     }
-    return render(request, 'post/post_create.html', context)
+    return render(request, 'photo/post_create.html', context)
+
+
+@login_required
+def post_delete(request, pk): # 현재 아무나 다 지울 수 있게 되어있음.
+    data = Post.objects.get(pk=pk)
+    data.delete()
+    return HttpResponseRedirect('/')
 
 
 class PostCreateView(View):
@@ -120,7 +128,7 @@ def comment_create(request, pk):
         if next_path:
             return redirect(next_path)
         # next parameter가 빈 경우 post_list뷰로 이동
-        return redirect('post:post_list')
+        return redirect('photo:post_list')
 
 
 class CreateCommentView(View):
